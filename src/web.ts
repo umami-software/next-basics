@@ -31,13 +31,3 @@ export const post = (url, params, headers) =>
 
 export const put = (url, params, headers) =>
   apiRequest('put', url, JSON.stringify(params), headers);
-
-export const hook = (_this, method, callback) => {
-  const orig = _this[method];
-
-  return (...args) => {
-    callback.apply(null, args);
-
-    return orig.apply(_this, args);
-  };
-};
