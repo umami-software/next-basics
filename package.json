@@ -1,0 +1,43 @@
+{
+  "name": "next-basics",
+  "version": "0.1.0",
+  "description": "A library of utilities for Next.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umami-software/next-basics.git"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@types/node": "^16.10.2",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "husky": "^7.0.4",
+    "jest": "^27.2.4",
+    "lint-staged": "^11.1.2",
+    "next": "^12.2.5",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "prettier-eslint": "^13.0.0",
+    "rollup": "^2.78.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-ts": "^3.0.2",
+    "source-map-loader": "^3.0.0",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.7.4"
+  }
+}
