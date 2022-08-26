@@ -1,12 +1,12 @@
-export function removeTrailingSlash(url) {
+export function removeTrailingSlash(url: string): string {
   return url && url.length > 1 && url.endsWith('/') ? url.slice(0, -1) : url;
 }
 
-export function removeWWW(url) {
+export function removeWWW(url: string): string {
   return url && url.length > 1 && url.startsWith('www.') ? url.slice(4) : url;
 }
 
-export function getQueryString(params = {}) {
+export function getQueryString(params: object = {}): string {
   const map = Object.keys(params).reduce((arr: Array<string>, key: string) => {
     if (params[key] !== undefined) {
       return arr.concat(`${key}=${encodeURIComponent(params[key])}`);
@@ -21,11 +21,11 @@ export function getQueryString(params = {}) {
   return '';
 }
 
-export function makeUrl(url, params) {
+export function makeUrl(url: string, params: object = {}): string {
   return `${url}${getQueryString(params)}`;
 }
 
-export function safeDecodeURI(s) {
+export function safeDecodeURI(s: string): string {
   try {
     return decodeURI(s);
   } catch (e) {

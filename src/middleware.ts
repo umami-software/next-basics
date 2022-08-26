@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export type MiddlewareFunction = (req: NextRequest, res: NextResponse, result: any) => void;
+export type MiddlewareFunction = (req: NextRequest, res: NextResponse, result?: any) => void;
 
 export function createMiddleware(middleware: MiddlewareFunction) {
   return (req: NextRequest, res: NextResponse) =>

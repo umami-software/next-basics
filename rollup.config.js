@@ -11,7 +11,7 @@ export default [
       {
         file: 'dist/cjs/index.js',
         format: 'cjs',
-        name: 'react-basics',
+        name: 'next-basics',
       },
       {
         file: 'dist/esm/index.js',

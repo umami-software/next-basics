@@ -8,7 +8,7 @@ export function json(res: NextApiResponse, data = {}) {
   return res.status(200).json(data);
 }
 
-export function send(res: NextApiResponse, data, type = 'text/plain') {
+export function send(res: NextApiResponse, data: any, type: string = 'text/plain') {
   res.setHeader('Content-Type', type);
 
   return res.status(200).send(data);

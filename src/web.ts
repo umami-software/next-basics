@@ -1,6 +1,6 @@
 import { makeUrl } from './url';
 
-export const apiRequest = (method, url, body, headers) => {
+export const apiRequest = (method: string, url: string, body, headers?: object) => {
   return fetch(url, {
     method,
     cache: 'no-cache',
@@ -20,7 +20,7 @@ export const apiRequest = (method, url, body, headers) => {
   });
 };
 
-export const get = (url, params, headers) =>
+export const get = (url: string, params?: object, headers?: object) =>
   apiRequest('get', makeUrl(url, params), undefined, headers);
 
 export const del = (url, params, headers) =>

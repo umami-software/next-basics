@@ -1,3 +1,13 @@
+const CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+export function getRandomChars(n) {
+  let s = '';
+  for (let i = 0; i < n; i++) {
+    s += CHARS[Math.floor(Math.random() * CHARS.length)];
+  }
+  return s;
+}
+
 export const hook = (_this, method, callback) => {
   const orig = _this[method];
 
@@ -9,7 +19,7 @@ export const hook = (_this, method, callback) => {
 };
 
 export function chunk(arr: Array<any>, size: number) {
-  const chunks = [];
+  const chunks: any[] = [];
 
   let index = 0;
   while (index < arr.length) {

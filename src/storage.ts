@@ -1,4 +1,4 @@
-export const setItem = (key: string, data: object, session?: boolean) => {
+export const setItem = (key: string, data: any, session?: boolean) => {
   if (typeof window !== 'undefined' && data) {
     (session ? sessionStorage : localStorage).setItem(key, JSON.stringify(data));
   }
