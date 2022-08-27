@@ -18,6 +18,17 @@ export default [
         format: 'esm',
       },
     ],
-    plugins: [external(), resolve(), commonjs(), ts(), terser()],
+    plugins: [
+      external(),
+      resolve(),
+      commonjs(),
+      ts(),
+      terser({
+        format: {
+          comments: false,
+        },
+      }),
+    ],
+    external: ['next', 'next/router', 'next/server', 'react', 'react-dom'],
   },
 ];

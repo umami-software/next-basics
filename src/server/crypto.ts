@@ -10,17 +10,14 @@ const TAG_POSITION = SALT_LENGTH + IV_LENGTH;
 const ENC_POSITION = TAG_POSITION + TAG_LENGTH;
 const SALT_ROUNDS = 10;
 
+const getKey = (password, salt) => crypto.pbkdf2Sync(password, salt, 10000, 32, 'sha512');
+
 export function hash(
-  value: string | string[],
+  value: string,
   algorithm: string = 'sha512',
   encoding: 'base64' | 'base64url' | 'hex' = 'hex',
 ) {
-  const data = Array.isArray(value) ? value.join('') : value;
-  return crypto.createHash(algorithm).update(data).digest(encoding);
-}
-
-function getKey(password, salt) {
-  return crypto.pbkdf2Sync(password, salt, 10000, 32, 'sha512');
+  return crypto.createHash(algorithm).update(value).digest(encoding);
 }
 
 export function encrypt(value: any, secret: any) {
