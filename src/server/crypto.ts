@@ -13,11 +13,17 @@ const SALT_ROUNDS = 10;
 const getKey = (password, salt) => crypto.pbkdf2Sync(password, salt, 10000, 32, 'sha512');
 
 export function hash(
-  value: string,
+  value?: string,
   algorithm: string = 'sha512',
   encoding: 'base64' | 'base64url' | 'hex' = 'hex',
 ) {
-  return crypto.createHash(algorithm).update(value).digest(encoding);
+  let str = value || crypto.randomBytes(256);
+
+  if (Array.isArray(value)) {
+    str = value.join('');
+  }
+
+  return crypto.createHash(algorithm).update(str).digest(encoding);
 }
 
 export function encrypt(value: any, secret: any) {
