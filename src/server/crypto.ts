@@ -36,10 +36,10 @@ export function encrypt(value: any, secret: any) {
 
 export function decrypt(value: any, secret: any) {
   const str = Buffer.from(String(value), 'base64');
-  const salt = str.slice(0, SALT_LENGTH);
-  const iv = str.slice(SALT_LENGTH, TAG_POSITION);
-  const tag = str.slice(TAG_POSITION, ENC_POSITION);
-  const encrypted = str.slice(ENC_POSITION);
+  const salt = str.subarray(0, SALT_LENGTH);
+  const iv = str.subarray(SALT_LENGTH, TAG_POSITION);
+  const tag = str.subarray(TAG_POSITION, ENC_POSITION);
+  const encrypted = str.subarray(ENC_POSITION);
 
   const key = getKey(secret, salt);
 
@@ -50,8 +50,8 @@ export function decrypt(value: any, secret: any) {
   return decipher.update(encrypted) + decipher.final('utf8');
 }
 
-export function hashPassword(password: string) {
-  return bcrypt.hashSync(password, SALT_ROUNDS);
+export function hashPassword(password: string, rounds = SALT_ROUNDS) {
+  return bcrypt.hashSync(password, rounds);
 }
 
 export function checkPassword(password: string, hash: string) {

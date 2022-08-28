@@ -2,10 +2,6 @@ import { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { get, post, put, del } from '../client/web';
 
-export interface UseApiProps {
-  authToken?: string;
-}
-
 export type UseApiMethod = (
   url: string,
   params?: any,
@@ -19,14 +15,14 @@ export interface UseApiMethods {
   del: UseApiMethod;
 }
 
-const parseHeaders = (headers: any = {}, authToken) => {
+const parseHeaders = (headers: any = {}, authToken?: string) => {
   if (authToken) {
     headers.authorization = `Bearer ${authToken}`;
   }
   return headers;
 };
 
-export function useApi({ authToken }: UseApiProps): UseApiMethods {
+export function useApi(authToken?: string): UseApiMethods {
   const { basePath } = useRouter();
 
   return {
