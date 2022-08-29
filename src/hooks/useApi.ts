@@ -1,55 +1,48 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { get, post, put, del } from '../client/web';
+import { get, post, put, del } from '../client/request';
 
-export type UseApiMethod = (
+export type ApiMethod = (
   url: string,
   params?: any,
   headers?: any,
 ) => Promise<{ ok: boolean; status: number; data: any }>;
 
-export interface UseApiMethods {
-  get: UseApiMethod;
-  post: UseApiMethod;
-  put: UseApiMethod;
-  del: UseApiMethod;
+export interface ApiMethods {
+  get: ApiMethod;
+  post: ApiMethod;
+  put: ApiMethod;
+  del: ApiMethod;
 }
 
-const parseHeaders = (headers: any = {}, authToken?: string) => {
-  if (authToken) {
-    headers.authorization = `Bearer ${authToken}`;
-  }
-  return headers;
-};
-
-export function useApi(authToken?: string): UseApiMethods {
+export function useApi(): ApiMethods {
   const { basePath } = useRouter();
 
   return {
     get: useCallback(
       async (url, params, headers) => {
-        return get(`${basePath}/api${url}`, params, parseHeaders(headers, authToken));
+        return get(`${basePath}/api${url}`, params, headers);
       },
       [get],
     ),
 
     post: useCallback(
       async (url, params, headers) => {
-        return post(`${basePath}/api${url}`, params, parseHeaders(headers, authToken));
+        return post(`${basePath}/api${url}`, params, headers);
       },
       [post],
     ),
 
     put: useCallback(
       async (url, params, headers) => {
-        return put(`${basePath}/api${url}`, params, parseHeaders(headers, authToken));
+        return put(`${basePath}/api${url}`, params, headers);
       },
       [put],
     ),
 
     del: useCallback(
       async (url, params, headers) => {
-        return del(`${basePath}/api${url}`, params, parseHeaders(headers, authToken));
+        return del(`${basePath}/api${url}`, params, headers);
       },
       [del],
     ),

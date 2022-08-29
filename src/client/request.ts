@@ -1,4 +1,4 @@
-import { makeUrl } from './url';
+import { buildUrl } from './url';
 
 export const apiRequest = (method: string, url: string, body, headers?: object) => {
   return fetch(url, {
@@ -21,10 +21,10 @@ export const apiRequest = (method: string, url: string, body, headers?: object) 
 };
 
 export const get = (url: string, params?: object, headers?: object) =>
-  apiRequest('get', makeUrl(url, params), undefined, headers);
+  apiRequest('get', buildUrl(url, params), undefined, headers);
 
 export const del = (url, params, headers) =>
-  apiRequest('delete', makeUrl(url, params), undefined, headers);
+  apiRequest('delete', buildUrl(url, params), undefined, headers);
 
 export const post = (url, params, headers) =>
   apiRequest('post', url, JSON.stringify(params), headers);

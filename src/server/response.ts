@@ -1,10 +1,10 @@
 import type { NextApiResponse } from 'next';
 
-export function ok(res: NextApiResponse, data = {}) {
+export function ok(res: NextApiResponse, data: object = {}) {
   return json(res, data);
 }
 
-export function json(res: NextApiResponse, data = {}) {
+export function json(res: NextApiResponse, data: object = {}) {
   return res.status(200).json(data);
 }
 
@@ -14,7 +14,7 @@ export function send(res: NextApiResponse, data: any, type: string = 'text/plain
   return res.status(200).send(data);
 }
 
-export function redirect(res: NextApiResponse, url) {
+export function redirect(res: NextApiResponse, url: string) {
   res.setHeader('Location', url);
 
   return res.status(303).end();
