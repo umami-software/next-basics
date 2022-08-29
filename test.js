@@ -5,6 +5,7 @@ const {
   decrypt,
   createSecureToken,
   parseSecureToken,
+  buildUrl,
 } = require('./dist/cjs/index');
 
 (async () => {
@@ -21,4 +22,6 @@ const {
   const dt = parseSecureToken(st, secret);
 
   console.log({ data, secret, token, result, str, enc, dec, st, dt });
+
+  console.log(buildUrl('page.html', { a: 1, b: 2, c: undefined }));
 })();
