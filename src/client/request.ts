@@ -1,6 +1,11 @@
 import { buildUrl } from './url';
 
-export const apiRequest = (method: string, url: string, body, headers?: object) => {
+export const apiRequest = (
+  method: string,
+  url: string,
+  body,
+  headers?: object,
+): Promise<{ ok: boolean; status: number; data?: any; error?: any }> => {
   return fetch(url, {
     method,
     cache: 'no-cache',
@@ -16,7 +21,7 @@ export const apiRequest = (method: string, url: string, body, headers?: object) 
       return res.json().then(data => ({ ok: res.ok, status: res.status, data }));
     }
 
-    return res.text().then(data => ({ ok: res.ok, status: res.status, res: res, data }));
+    return res.text().then(text => ({ ok: res.ok, status: res.status, error: text }));
   });
 };
 

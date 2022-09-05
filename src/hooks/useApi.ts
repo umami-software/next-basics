@@ -2,11 +2,9 @@ import { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { get, post, put, del } from '../client/request';
 
-export type ApiMethod = (
-  url: string,
-  params?: any,
-  headers?: any,
-) => Promise<{ ok: boolean; status: number; data: any }>;
+export type ApiResponse = { ok: boolean; status: number; data?: any; error?: any };
+
+export type ApiMethod = (url: string, params?: any, headers?: any) => Promise<ApiResponse>;
 
 export interface ApiMethods {
   get: ApiMethod;
@@ -15,34 +13,41 @@ export interface ApiMethods {
   del: ApiMethod;
 }
 
+function handleError(res: ApiResponse): ApiResponse {
+  if (res.error) {
+    throw new Error(res.error);
+  }
+  return res;
+}
+
 export function useApi(): ApiMethods {
   const { basePath } = useRouter();
 
   return {
     get: useCallback(
       async (url, params, headers) => {
-        return get(`${basePath}/api${url}`, params, headers);
+        return get(`${basePath}/api${url}`, params, headers).then(handleError);
       },
       [get],
     ),
 
     post: useCallback(
       async (url, params, headers) => {
-        return post(`${basePath}/api${url}`, params, headers);
+        return post(`${basePath}/api${url}`, params, headers).then(handleError);
       },
       [post],
     ),
 
     put: useCallback(
       async (url, params, headers) => {
-        return put(`${basePath}/api${url}`, params, headers);
+        return put(`${basePath}/api${url}`, params, headers).then(handleError);
       },
       [put],
     ),
 
     del: useCallback(
       async (url, params, headers) => {
-        return del(`${basePath}/api${url}`, params, headers);
+        return del(`${basePath}/api${url}`, params, headers).then(handleError);
       },
       [del],
     ),
