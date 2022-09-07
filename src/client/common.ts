@@ -1,9 +1,10 @@
-const CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-
-export function getRandomChars(n) {
+export function getRandomChars(
+  n,
+  chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+) {
   let s = '';
   for (let i = 0; i < n; i++) {
-    s += CHARS[Math.floor(Math.random() * CHARS.length)];
+    s += chars[Math.floor(Math.random() * chars.length)];
   }
   return s;
 }
@@ -30,9 +31,8 @@ export function chunk(arr: Array<any>, size: number) {
   return chunks;
 }
 
-export function sortArrayByMap(arr, map = [], key) {
-  if (!arr) return [];
-  if (map.length === 0) return arr;
-
-  return map.map(id => arr.find(item => item[key] === id));
+export function ensureArray(arr?: any) {
+  if (arr === undefined || arr === null) return [];
+  if (Array.isArray(arr)) return arr;
+  return [arr];
 }
