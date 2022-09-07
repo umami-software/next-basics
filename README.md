@@ -1,6 +1,6 @@
 # next-basics
 
-A library of utilities for Next.js.
+Everyday utilities for Next.js.
 
 ## License
 
