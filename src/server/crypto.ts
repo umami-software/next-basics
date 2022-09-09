@@ -88,11 +88,9 @@ export function parseSecureToken(token: string, secret: any) {
   }
 }
 
-export async function getAuthToken(req, secret) {
+export async function parseAuthToken(req, secret) {
   try {
-    const token = req.headers.authorization;
-
-    return parseSecureToken(token.split(' ')[1], secret);
+    return parseSecureToken(req.headers.authorization.split(' ')[1], secret);
   } catch {
     return null;
   }

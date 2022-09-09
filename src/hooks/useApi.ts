@@ -24,8 +24,9 @@ function handleError(res: ApiResponse): Promise<ApiResponse> {
 
 export function useApi(authToken): ApiMethods {
   const { basePath } = useRouter();
+
   const updateHeaders = headers => {
-    if (authToken) {
+    if (headers && authToken) {
       headers.authorization = `Bearer ${authToken}`;
     }
     return headers;
