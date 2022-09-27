@@ -22,7 +22,7 @@ function handleError(res: ApiResponse): Promise<ApiResponse> {
   });
 }
 
-export function useApi(authToken): ApiMethods {
+export function useApi(authToken?: string): ApiMethods {
   const { basePath } = useRouter();
 
   const updateHeaders = (headers: any = {}) => {
