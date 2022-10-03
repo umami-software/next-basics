@@ -13,13 +13,17 @@ export interface ApiMethods {
   del: ApiMethod;
 }
 
-function handleError(res: ApiResponse): Promise<ApiResponse> {
+function handleResponse(res: ApiResponse): Promise<ApiResponse> {
   return new Promise((resolve, reject) => {
     if (!res.ok) {
       reject(res.error);
     }
     resolve(res.data);
   });
+}
+
+function handleError(err: Error) {
+  return Promise.reject(err.message);
 }
 
 function getUrl(url, basePath) {
@@ -39,28 +43,28 @@ export function useApi(authToken?: string): ApiMethods {
   return {
     get: useCallback(
       async (url, params, headers) => {
-        return get(getUrl(url, basePath), params, updateHeaders(headers)).then(handleError);
+        return get(getUrl(url, basePath), params, updateHeaders(headers)).then(handleResponse).catch(handleError);
       },
       [get],
     ),
 
     post: useCallback(
       async (url, params, headers) => {
-        return post(getUrl(url, basePath), params, updateHeaders(headers)).then(handleError);
+        return post(getUrl(url, basePath), params, updateHeaders(headers)).then(handleResponse).catch(handleError);
       },
       [post],
     ),
 
     put: useCallback(
       async (url, params, headers) => {
-        return put(getUrl(url, basePath), params, updateHeaders(headers)).then(handleError);
+        return put(getUrl(url, basePath), params, updateHeaders(headers)).then(handleResponse).catch(handleError);
       },
       [put],
     ),
 
     del: useCallback(
       async (url, params, headers) => {
-        return del(getUrl(url, basePath), params, updateHeaders(headers)).then(handleError);
+        return del(getUrl(url, basePath), params, updateHeaders(headers)).then(handleResponse).catch(handleError);
       },
       [del],
     ),
