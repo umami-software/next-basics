@@ -22,6 +22,10 @@ function handleError(res: ApiResponse): Promise<ApiResponse> {
   });
 }
 
+function getUrl(url, basePath) {
+  return url.startsWith('http') ? url : `${basePath}/api${url}`;
+}
+
 export function useApi(authToken?: string): ApiMethods {
   const { basePath } = useRouter();
 
@@ -35,28 +39,28 @@ export function useApi(authToken?: string): ApiMethods {
   return {
     get: useCallback(
       async (url, params, headers) => {
-        return get(`${basePath}/api${url}`, params, updateHeaders(headers)).then(handleError);
+        return get(getUrl(url, basePath), params, updateHeaders(headers)).then(handleError);
       },
       [get],
     ),
 
     post: useCallback(
       async (url, params, headers) => {
-        return post(`${basePath}/api${url}`, params, updateHeaders(headers)).then(handleError);
+        return post(getUrl(url, basePath), params, updateHeaders(headers)).then(handleError);
       },
       [post],
     ),
 
     put: useCallback(
       async (url, params, headers) => {
-        return put(`${basePath}/api${url}`, params, updateHeaders(headers)).then(handleError);
+        return put(getUrl(url, basePath), params, updateHeaders(headers)).then(handleError);
       },
       [put],
     ),
 
     del: useCallback(
       async (url, params, headers) => {
-        return del(`${basePath}/api${url}`, params, updateHeaders(headers)).then(handleError);
+        return del(getUrl(url, basePath), params, updateHeaders(headers)).then(handleError);
       },
       [del],
     ),
