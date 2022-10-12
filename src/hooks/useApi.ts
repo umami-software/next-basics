@@ -22,8 +22,8 @@ function handleResponse(res: ApiResponse): Promise<ApiResponse> {
   });
 }
 
-function handleError(err: Error) {
-  return Promise.reject(err.message);
+function handleError(err: Error | string) {
+  return Promise.reject((err as Error)?.message || err || null);
 }
 
 function getUrl(url, basePath) {
@@ -38,33 +38,41 @@ export function useApi(authToken?: string): ApiMethods {
       headers.Authorization = `Bearer ${authToken}`;
     }
     return headers;
-  }
+  };
 
   return {
     get: useCallback(
       async (url, params, headers) => {
-        return get(getUrl(url, basePath), params, updateHeaders(headers)).then(handleResponse).catch(handleError);
+        return get(getUrl(url, basePath), params, updateHeaders(headers))
+          .then(handleResponse)
+          .catch(handleError);
       },
       [get],
     ),
 
     post: useCallback(
       async (url, params, headers) => {
-        return post(getUrl(url, basePath), params, updateHeaders(headers)).then(handleResponse).catch(handleError);
+        return post(getUrl(url, basePath), params, updateHeaders(headers))
+          .then(handleResponse)
+          .catch(handleError);
       },
       [post],
     ),
 
     put: useCallback(
       async (url, params, headers) => {
-        return put(getUrl(url, basePath), params, updateHeaders(headers)).then(handleResponse).catch(handleError);
+        return put(getUrl(url, basePath), params, updateHeaders(headers))
+          .then(handleResponse)
+          .catch(handleError);
       },
       [put],
     ),
 
     del: useCallback(
       async (url, params, headers) => {
-        return del(getUrl(url, basePath), params, updateHeaders(headers)).then(handleResponse).catch(handleError);
+        return del(getUrl(url, basePath), params, updateHeaders(headers))
+          .then(handleResponse)
+          .catch(handleError);
       },
       [del],
     ),

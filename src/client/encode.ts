@@ -11,7 +11,7 @@ export function bufferToHexString(bytes: Uint8Array): string {
   return bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
 }
 
-export function hexToUuid(str) {
+export function hexToUuid(str: string): string {
   const arr = str.split('');
 
   [8, 13, 18, 23].forEach(idx => {
@@ -21,10 +21,10 @@ export function hexToUuid(str) {
   return arr.join('');
 }
 
-export function encodeUuid(uuid) {
+export function encodeUuid(uuid: string): string {
   return base62.encode(hexStringToBuffer(uuid.replace(/-/g, '')));
 }
 
-export function decodeUuid(id) {
+export function decodeUuid(id: Uint8Array): string {
   return hexToUuid(bufferToHexString(base62.decode(id)));
 }
