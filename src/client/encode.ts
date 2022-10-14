@@ -21,10 +21,18 @@ export function hexToUuid(str: string): string {
   return arr.join('');
 }
 
-export function encodeUuid(uuid: string): string {
-  return base62.encode(hexStringToBuffer(uuid.replace(/-/g, '')));
+export function encodeUuid(uuid: string): string | null {
+  try {
+    return base62.encode(hexStringToBuffer(uuid.replace(/-/g, '')));
+  } catch {
+    return null;
+  }
 }
 
-export function decodeUuid(id: Uint8Array): string {
-  return hexToUuid(bufferToHexString(base62.decode(id)));
+export function decodeUuid(id: Uint8Array): string | null {
+  try {
+    return hexToUuid(bufferToHexString(base62.decode(id)));
+  } catch {
+    return null;
+  }
 }
