@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { get, post, put, del } from '../client/request';
+import { get, post, put, del } from 'client/request';
 
 export type ApiResponse = { ok: boolean; status: number; data?: any; error?: any };
 
@@ -26,7 +26,7 @@ function handleError(err: Error | string) {
   return Promise.reject((err as Error)?.message || err || null);
 }
 
-function getUrl(url, basePath) {
+function getUrl(url: string, basePath?: string): string {
   return url.startsWith('http') ? url : `${basePath}/api${url}`;
 }
 

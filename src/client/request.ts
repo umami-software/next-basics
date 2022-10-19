@@ -1,15 +1,14 @@
 import { buildUrl } from './url';
 
-export const apiRequest = (
+export function apiRequest(
   method: string,
   url: string,
   body,
   headers?: object,
-): Promise<{ ok: boolean; status: number; data?: any; error?: any }> => {
+): Promise<{ ok: boolean; status: number; data?: any; error?: any }> {
   return fetch(url, {
     method,
     cache: 'no-cache',
-    credentials: 'same-origin',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -23,16 +22,20 @@ export const apiRequest = (
 
     return res.text().then(text => ({ ok: res.ok, status: res.status, error: text }));
   });
-};
+}
 
-export const get = (url: string, params?: object, headers?: object) =>
-  apiRequest('get', buildUrl(url, params), undefined, headers);
+export function get(url: string, params?: object, headers?: object) {
+  return apiRequest('get', buildUrl(url, params), undefined, headers);
+}
 
-export const del = (url, params, headers) =>
-  apiRequest('delete', buildUrl(url, params), undefined, headers);
+export function del(url, params, headers) {
+  return apiRequest('delete', buildUrl(url, params), undefined, headers);
+}
 
-export const post = (url, params, headers) =>
-  apiRequest('post', url, JSON.stringify(params), headers);
+export function post(url, params, headers) {
+  return apiRequest('post', url, JSON.stringify(params), headers);
+}
 
-export const put = (url, params, headers) =>
-  apiRequest('put', url, JSON.stringify(params), headers);
+export function put(url, params, headers) {
+  return apiRequest('put', url, JSON.stringify(params), headers);
+}

@@ -1,10 +1,10 @@
-export const setItem = (key: string, data: any, session?: boolean): void => {
+export function setItem(key: string, data: any, session?: boolean): void {
   if (typeof window !== 'undefined' && data) {
-    (session ? sessionStorage : localStorage).setItem(key, JSON.stringify(data));
+    return (session ? sessionStorage : localStorage).setItem(key, JSON.stringify(data));
   }
-};
+}
 
-export const getItem = (key: string, session?: boolean): any => {
+export function getItem(key: string, session?: boolean): any {
   if (typeof window !== 'undefined') {
     const value = (session ? sessionStorage : localStorage).getItem(key);
 
@@ -12,10 +12,10 @@ export const getItem = (key: string, session?: boolean): any => {
       return JSON.parse(value);
     }
   }
-};
+}
 
-export const removeItem = (key: string, session?: boolean): void => {
+export function removeItem(key: string, session?: boolean): void {
   if (typeof window !== 'undefined') {
-    (session ? sessionStorage : localStorage).removeItem(key);
+    return (session ? sessionStorage : localStorage).removeItem(key);
   }
-};
+}
