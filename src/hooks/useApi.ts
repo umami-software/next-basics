@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { get, post, put, del } from 'client/request';
 
 export type ApiResponse = { ok: boolean; status: number; data?: any; error?: any };
