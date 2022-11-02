@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { useRouter } from 'next/navigation';
 import { get, post, put, del } from 'client/request';
 
 export type ApiResponse = { ok: boolean; status: number; data?: any; error?: any };
@@ -26,13 +25,11 @@ function handleError(err: Error | string) {
   return Promise.reject((err as Error)?.message || err || null);
 }
 
-function getUrl(url: string, basePath?: string): string {
-  return url.startsWith('http') ? url : `${basePath}/api${url}`;
+function getUrl(url: string, basePath = ''): string {
+  return url.startsWith('http') ? url : `${basePath ?? ''}/api${url}`;
 }
 
-export function useApi(authToken?: string): ApiMethods {
-  const { basePath } = useRouter();
-
+export function useApi(authToken?: string, basePath?: string): ApiMethods {
   const updateHeaders = (headers: any = {}) => {
     if (authToken) {
       headers.Authorization = `Bearer ${authToken}`;
