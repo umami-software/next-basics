@@ -1,9 +1,9 @@
-import type { NextRequest, NextResponse } from 'next/server';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export type MiddlewareFunction = (req: NextRequest, res: NextResponse, result?: any) => void;
+export type MiddlewareFunction = (req: NextApiRequest, res: NextApiResponse, result?: any) => void;
 
 export function createMiddleware(middleware: MiddlewareFunction) {
-  return (req: NextRequest, res: NextResponse) =>
+  return (req: NextApiRequest, res: NextApiResponse) =>
     new Promise((resolve, reject) => {
       middleware(req, res, result => {
         if (result instanceof Error) {
