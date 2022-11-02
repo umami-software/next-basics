@@ -1,6 +1,6 @@
 {
   "name": "next-basics",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "description": "Everyday utilities for Next.js",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -14,11 +14,10 @@
     "url": "git+https://github.com/umami-software/next-basics.git"
   },
   "scripts": {
-    "build": "rollup -c",
-    "prepublish": "build"
+    "build": "rollup -c"
   },
   "peerDependencies": {
-    "next": "^13.0.1",
+    "next": "^12.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
