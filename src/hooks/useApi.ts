@@ -1,9 +1,7 @@
 import { useCallback } from 'react';
-import { get, post, put, del } from 'client/request';
+import { get, post, put, del, ApiResponse } from 'client/request';
 
-export type ApiResponse = { ok: boolean; status: number; data?: any; error?: any };
-
-export type ApiMethod = (url: string, params?: any, headers?: any) => Promise<ApiResponse>;
+export type ApiMethod = (url: string, params?: any, headers?: any) => Promise<ApiResponse<any>>;
 
 export interface ApiMethods {
   get: ApiMethod;
@@ -12,7 +10,7 @@ export interface ApiMethods {
   del: ApiMethod;
 }
 
-function handleResponse(res: ApiResponse): Promise<ApiResponse> {
+function handleResponse(res: ApiResponse<any>): Promise<ApiResponse<any>> {
   return new Promise((resolve, reject) => {
     if (!res.ok) {
       reject(res.error);
