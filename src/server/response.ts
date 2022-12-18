@@ -40,6 +40,10 @@ export function methodNotAllowed(res: NextApiResponse, msg = '405 Method Not All
   res.status(405).end(msg);
 }
 
+export function tooManyRequest(res: NextApiResponse, msg = '429 Too Many Request') {
+  return res.status(429).end(msg);
+}
+
 export function serverError(res: NextApiResponse, msg = '500 Internal Server Error') {
   res.status(500).end(msg);
 }
