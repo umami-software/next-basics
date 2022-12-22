@@ -1,7 +1,5 @@
 import { buildUrl } from './url';
 
-export type ApiResponse<T> = { ok: boolean; status: number; data?: T; error?: any };
-
 export function apiRequest(
   method: string,
   url: string,

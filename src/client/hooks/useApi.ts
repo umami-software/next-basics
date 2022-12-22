@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
-import { get, post, put, del, ApiResponse } from 'client/request';
+import { get, post, put, del } from 'client/request';
+
+export type ApiResponse<T> = { ok: boolean; status: number; data?: T; error?: any };
 
 export type ApiMethod = (url: string, params?: any, headers?: any) => Promise<ApiResponse<any>>;
 
@@ -24,7 +26,7 @@ function handleError(err: Error | string) {
 }
 
 function getUrl(url: string, basePath = ''): string {
-  return url.startsWith('http') ? url : `${basePath ?? ''}/api${url}`;
+  return url.startsWith('http') ? url : `${basePath}/api${url}`;
 }
 
 export function useApi(authToken?: string, basePath?: string): ApiMethods {

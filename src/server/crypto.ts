@@ -1,6 +1,4 @@
 import crypto from 'crypto';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 
 const ALGORITHM = 'aes-256-gcm';
 const IV_LENGTH = 16;
@@ -8,7 +6,6 @@ const SALT_LENGTH = 64;
 const TAG_LENGTH = 16;
 const TAG_POSITION = SALT_LENGTH + IV_LENGTH;
 const ENC_POSITION = TAG_POSITION + TAG_LENGTH;
-const SALT_ROUNDS = 10;
 
 const HASH_ALGO = 'sha512';
 const HASH_ENCODING = 'hex';
@@ -47,44 +44,4 @@ export function decrypt(value: any, secret: any) {
   decipher.setAuthTag(tag);
 
   return decipher.update(encrypted) + decipher.final('utf8');
-}
-
-export function hashPassword(password: string, rounds = SALT_ROUNDS) {
-  return bcrypt.hashSync(password, rounds);
-}
-
-export function checkPassword(password: string, hash: string) {
-  return bcrypt.compareSync(password, hash);
-}
-
-export function createToken(payload: any, secret: any, options?: any) {
-  return jwt.sign(payload, secret, options);
-}
-
-export function parseToken(token: string, secret: any) {
-  try {
-    return jwt.verify(token, secret);
-  } catch {
-    return null;
-  }
-}
-
-export function createSecureToken(payload: any, secret: any, options?: any) {
-  return encrypt(createToken(payload, secret, options), secret);
-}
-
-export function parseSecureToken(token: string, secret: any) {
-  try {
-    return jwt.verify(decrypt(token, secret), secret);
-  } catch {
-    return null;
-  }
-}
-
-export async function parseAuthToken(req, secret) {
-  try {
-    return parseSecureToken(req.headers.authorization.split(' ')[1], secret);
-  } catch {
-    return null;
-  }
 }
