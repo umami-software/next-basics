@@ -9,7 +9,7 @@ export function shuffleArray(a) {
   return arr;
 }
 
-export function chunkArray(arr: Array<any>, size: number) {
+export function chunkArray(arr: any[], size: number) {
   const chunks: any[] = [];
 
   let index = 0;
