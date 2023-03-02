@@ -29,18 +29,15 @@ function getUrl(url: string, basePath = ''): string {
   return url.startsWith('http') ? url : `${basePath}/api${url}`;
 }
 
-export function useApi(authToken?: string, basePath?: string): ApiMethods {
-  const updateHeaders = (headers: any = {}) => {
-    if (authToken) {
-      headers.Authorization = `Bearer ${authToken}`;
-    }
-    return headers;
+export function useApi(defaultHeaders?: any, basePath?: string): ApiMethods {
+  const getHeaders = (headers: any = {}) => {
+    return { ...defaultHeaders, ...headers };
   };
 
   return {
     get: useCallback(
       async (url, params, headers) => {
-        return get(getUrl(url, basePath), params, updateHeaders(headers))
+        return get(getUrl(url, basePath), params, getHeaders(headers))
           .then(handleResponse)
           .catch(handleError);
       },
@@ -49,7 +46,7 @@ export function useApi(authToken?: string, basePath?: string): ApiMethods {
 
     post: useCallback(
       async (url, params, headers) => {
-        return post(getUrl(url, basePath), params, updateHeaders(headers))
+        return post(getUrl(url, basePath), params, getHeaders(headers))
           .then(handleResponse)
           .catch(handleError);
       },
@@ -58,7 +55,7 @@ export function useApi(authToken?: string, basePath?: string): ApiMethods {
 
     put: useCallback(
       async (url, params, headers) => {
-        return put(getUrl(url, basePath), params, updateHeaders(headers))
+        return put(getUrl(url, basePath), params, getHeaders(headers))
           .then(handleResponse)
           .catch(handleError);
       },
@@ -67,7 +64,7 @@ export function useApi(authToken?: string, basePath?: string): ApiMethods {
 
     del: useCallback(
       async (url, params, headers) => {
-        return del(getUrl(url, basePath), params, updateHeaders(headers))
+        return del(getUrl(url, basePath), params, getHeaders(headers))
           .then(handleResponse)
           .catch(handleError);
       },
