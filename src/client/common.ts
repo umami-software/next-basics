@@ -21,3 +21,7 @@ export function hook(_this, method, callback) {
     return orig.apply(_this, args);
   };
 }
+
+export function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
