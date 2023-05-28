@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "cross-fetch": "^3.1.6",
     "jsonwebtoken": "^9.0.0",
     "pure-rand": "^6.0.2"
   },

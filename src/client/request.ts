@@ -1,4 +1,3 @@
-import fetch from 'cross-fetch';
 import { buildUrl } from './url';
 
 export function request(
