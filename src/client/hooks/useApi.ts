@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { get, post, put, del } from 'client/request';
+import { httpGet, httpPost, httpPut, httpDelete } from 'client/request';
 
 export type ApiResponse<T> = { ok: boolean; status: number; data?: T; error?: any };
 
@@ -37,38 +37,38 @@ export function useApi(defaultHeaders?: any, basePath?: string): ApiMethods {
   return {
     get: useCallback(
       async (url, params, headers) => {
-        return get(getUrl(url, basePath), params, getHeaders(headers))
+        return httpGet(getUrl(url, basePath), params, getHeaders(headers))
           .then(handleResponse)
           .catch(handleError);
       },
-      [get],
+      [httpGet],
     ),
 
     post: useCallback(
       async (url, params, headers) => {
-        return post(getUrl(url, basePath), params, getHeaders(headers))
+        return httpPost(getUrl(url, basePath), params, getHeaders(headers))
           .then(handleResponse)
           .catch(handleError);
       },
-      [post],
+      [httpPost],
     ),
 
     put: useCallback(
       async (url, params, headers) => {
-        return put(getUrl(url, basePath), params, getHeaders(headers))
+        return httpPut(getUrl(url, basePath), params, getHeaders(headers))
           .then(handleResponse)
           .catch(handleError);
       },
-      [put],
+      [httpPut],
     ),
 
     del: useCallback(
       async (url, params, headers) => {
-        return del(getUrl(url, basePath), params, getHeaders(headers))
+        return httpDelete(getUrl(url, basePath), params, getHeaders(headers))
           .then(handleResponse)
           .catch(handleError);
       },
-      [del],
+      [httpDelete],
     ),
   };
 }

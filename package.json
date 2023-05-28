@@ -1,6 +1,6 @@
 {
   "name": "next-basics",
-  "version": "0.29.0",
+  "version": "0.30.0",
   "description": "Everyday utilities for Next.js",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cross-fetch": "^3.1.6",
     "jsonwebtoken": "^9.0.0",
     "pure-rand": "^6.0.2"
   },

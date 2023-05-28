@@ -1,6 +1,7 @@
+import fetch from 'cross-fetch';
 import { buildUrl } from './url';
 
-export function apiRequest(
+export function request(
   method: string,
   url: string,
   body,
@@ -24,18 +25,18 @@ export function apiRequest(
   });
 }
 
-export function get(url: string, params?: object, headers?: object) {
-  return apiRequest('get', buildUrl(url, params), undefined, headers);
+export function httpGet(url: string, params?: object, headers?: object) {
+  return request('get', buildUrl(url, params), undefined, headers);
 }
 
-export function del(url, params, headers) {
-  return apiRequest('delete', buildUrl(url, params), undefined, headers);
+export function httpDelete(url, params, headers) {
+  return request('delete', buildUrl(url, params), undefined, headers);
 }
 
-export function post(url, params, headers) {
-  return apiRequest('post', url, JSON.stringify(params), headers);
+export function httpPost(url, params, headers) {
+  return request('post', url, JSON.stringify(params), headers);
 }
 
-export function put(url, params, headers) {
-  return apiRequest('put', url, JSON.stringify(params), headers);
+export function httpPut(url, params, headers) {
+  return request('put', url, JSON.stringify(params), headers);
 }
