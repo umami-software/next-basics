@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { v4, v5 } from 'uuid';
 
 const ALGORITHM = 'aes-256-gcm';
 const IV_LENGTH = 16;
@@ -11,10 +12,6 @@ const HASH_ALGO = 'sha512';
 const HASH_ENCODING = 'hex';
 
 const getKey = (password, salt) => crypto.pbkdf2Sync(password, salt, 10000, 32, 'sha512');
-
-export function hash(...args) {
-  return crypto.createHash(HASH_ALGO).update(args.join('')).digest(HASH_ENCODING);
-}
 
 export function encrypt(value: any, secret: any) {
   const iv = crypto.randomBytes(IV_LENGTH);
@@ -44,4 +41,18 @@ export function decrypt(value: any, secret: any) {
   decipher.setAuthTag(tag);
 
   return decipher.update(encrypted) + decipher.final('utf8');
+}
+
+export function hash(...args) {
+  return crypto.createHash(HASH_ALGO).update(args.join('')).digest(HASH_ENCODING);
+}
+
+export function md5(...args) {
+  return crypto.createHash('md5').update(args.join('')).digest('hex');
+}
+
+export function uuid(...args) {
+  if (!args.length) return v4();
+
+  return v5(hash(...args), v5.DNS);
 }
