@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { v4, v5 } from 'uuid';
+import { v4, v5, validate } from 'uuid';
 
 const ALGORITHM = 'aes-256-gcm';
 const IV_LENGTH = 16;
@@ -55,4 +55,8 @@ export function uuid(...args) {
   if (!args.length) return v4();
 
   return v5(hash(...args), v5.DNS);
+}
+
+export function isUuid(value) {
+  return validate(value);
 }
