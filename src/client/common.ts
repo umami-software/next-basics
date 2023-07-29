@@ -1,5 +1,6 @@
 import prand from 'pure-rand';
 
+// tslint:disable-next-line:no-bitwise
 const seed = Date.now() ^ (Math.random() * 0x100000000);
 const rng = prand.xoroshiro128plus(seed);
 
@@ -11,7 +12,7 @@ export function hook(_this, method, callback) {
   const orig = _this[method];
 
   return (...args) => {
-    callback.apply(null, args);
+    callback(...args);
 
     return orig.apply(_this, args);
   };
