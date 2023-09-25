@@ -5,7 +5,7 @@ export function request(
   url: string,
   body,
   headers?: object,
-): Promise<{ ok: boolean; status: number; data?: any; error?: any }> {
+): Promise<{ ok: boolean; status: number; data?: any; error?: string }> {
   return fetch(url, {
     method,
     cache: 'no-cache',
