@@ -10,7 +10,8 @@ const ENC_POSITION = TAG_POSITION + TAG_LENGTH;
 const HASH_ALGO = 'sha512';
 const HASH_ENCODING = 'hex';
 
-const getKey = (password, salt) => crypto.pbkdf2Sync(password, salt, 10000, 32, 'sha512');
+const getKey = (password: string, salt: Buffer) =>
+  crypto.pbkdf2Sync(password, salt, 10000, 32, 'sha512');
 
 export function encrypt(value: any, secret: any) {
   const iv = crypto.randomBytes(IV_LENGTH);
@@ -42,10 +43,10 @@ export function decrypt(value: any, secret: any) {
   return decipher.update(encrypted) + decipher.final('utf8');
 }
 
-export function hash(...args) {
+export function hash(...args: string[]) {
   return crypto.createHash(HASH_ALGO).update(args.join('')).digest(HASH_ENCODING);
 }
 
-export function md5(...args) {
+export function md5(...args: string[]) {
   return crypto.createHash('md5').update(args.join('')).digest('hex');
 }

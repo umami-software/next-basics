@@ -25,9 +25,11 @@ export function parseSecureToken(token: string, secret: any) {
   }
 }
 
-export async function parseAuthToken(req, secret) {
+export async function parseAuthToken(req: Request, secret: string) {
   try {
-    return parseSecureToken(req.headers.authorization.split(' ')[1], secret);
+    const token = req.headers.get('authorization')?.split(' ')?.[1];
+
+    return parseSecureToken(token as string, secret);
   } catch {
     return null;
   }

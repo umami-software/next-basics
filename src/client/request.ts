@@ -1,12 +1,12 @@
 import { buildUrl } from './url';
 
-export function request(
+export async function request(
   method: string,
   url: string,
-  body,
-  headers?: object,
+  body: string | undefined,
+  headers: object = {},
 ): Promise<{ ok: boolean; status: number; data?: any; error?: any }> {
-  return fetch(url, {
+  const res = await fetch(url, {
     method,
     cache: 'no-cache',
     headers: {
@@ -15,27 +15,28 @@ export function request(
       ...headers,
     },
     body,
-  }).then(res => {
-    if (res.ok) {
-      return res.json().then(data => ({ ok: res.ok, status: res.status, data }));
-    }
-
-    return res.text().then(text => ({ ok: res.ok, status: res.status, error: text }));
   });
+  if (res.ok) {
+    return res.json().then(data => ({ ok: res.ok, status: res.status, data }));
+  }
+
+  const text = await res.text();
+
+  return { ok: res.ok, status: res.status, error: text };
 }
 
-export function httpGet(url: string, params?: object, headers?: object) {
+export function httpGet(url: string, params: object = {}, headers: object = {}) {
   return request('get', buildUrl(url, params), undefined, headers);
 }
 
-export function httpDelete(url, params, headers) {
+export function httpDelete(url: string, params: object = {}, headers: object = {}) {
   return request('delete', buildUrl(url, params), undefined, headers);
 }
 
-export function httpPost(url, params, headers) {
+export function httpPost(url: string, params: object = {}, headers: object = {}) {
   return request('post', url, JSON.stringify(params), headers);
 }
 
-export function httpPut(url, params, headers) {
+export function httpPut(url: string, params: object = {}, headers: object = {}) {
   return request('put', url, JSON.stringify(params), headers);
 }
