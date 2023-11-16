@@ -15,9 +15,9 @@ export interface ApiMethods {
 function handleResponse(res: ApiResponse<any>): Promise<ApiResponse<any>> {
   return new Promise((resolve, reject) => {
     if (!res.ok) {
-      reject(res.error);
+      reject(res);
     }
-    resolve(res.data);
+    resolve(res);
   });
 }
 
