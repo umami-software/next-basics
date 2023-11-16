@@ -12,12 +12,12 @@ export interface ApiMethods {
   del: ApiMethod;
 }
 
-function handleResponse(res: ApiResponse<any>): Promise<ApiResponse<any>> {
+function handleResponse(res: ApiResponse<any>): Promise<any> {
   return new Promise((resolve, reject) => {
     if (!res.ok) {
-      reject(res);
+      reject(res.error);
     }
-    resolve(res);
+    resolve(res.data);
   });
 }
 
