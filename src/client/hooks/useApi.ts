@@ -1,9 +1,13 @@
 import { useCallback } from 'react';
 import { httpGet, httpPost, httpPut, httpDelete } from 'client/request';
 
-export type ApiResponse<T> = { ok: boolean; status: number; data?: T; error?: any };
+export type ApiResponse = { ok: boolean; status: number; data?: any; error?: any };
 
-export type ApiMethod = (url: string, params?: any, headers?: any) => Promise<ApiResponse<any>>;
+export type ApiMethod = (
+  url: string,
+  params?: { [key: string]: any },
+  headers?: { [key: string]: string },
+) => Promise<any>;
 
 export interface ApiMethods {
   get: ApiMethod;
@@ -12,7 +16,7 @@ export interface ApiMethods {
   del: ApiMethod;
 }
 
-function handleResponse(res: ApiResponse<any>): Promise<any> {
+function handleResponse(res: ApiResponse): Promise<any> {
   return new Promise((resolve, reject) => {
     if (!res.ok) {
       reject(res.error);
@@ -29,7 +33,7 @@ function getUrl(url: string, basePath = ''): string {
   return url.startsWith('http') ? url : `${basePath}/api${url}`;
 }
 
-export function useApi(defaultHeaders?: any, basePath?: string): ApiMethods {
+export function useApi<T>(defaultHeaders?: any, basePath?: string): ApiMethods {
   const getHeaders = (headers: any = {}) => {
     return { ...defaultHeaders, ...headers };
   };
